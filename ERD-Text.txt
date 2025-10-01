@@ -1,0 +1,42 @@
+Table users {
+  user_id int [pk]
+  name varchar
+  email varchar [unique]
+  password varchar
+  role varchar
+  created_at datetime
+}
+
+Table cases {
+  case_id int [pk]
+  title varchar
+  description text
+  status varchar
+  created_at datetime
+  user_id int [ref: > users.user_id]
+  lawyer_id int [ref: > users.user_id]
+}
+
+Table documents {
+  document_id int [pk]
+  file_name varchar
+  file_path varchar
+  uploaded_at datetime
+  case_id int [ref: > cases.case_id]
+}
+
+Table hearings {
+  hearing_id int [pk]
+  date datetime
+  location varchar
+  notes text
+  case_id int [ref: > cases.case_id]
+}
+
+Table payments {
+  payment_id int [pk]
+  amount decimal
+  payment_date datetime
+  case_id int [ref: > cases.case_id]
+  user_id int [ref: > users.user_id]
+}
